@@ -1,0 +1,686 @@
+[33mcommit 897b114236f26c7d2988230f5dd5570f0295f329[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m)[m
+Author: Dev Francisco <franciscorodriguez.cont.dev@gmail.com>
+Date:   Fri Nov 22 12:27:03 2024 -0600
+
+    Subiendo pruebas
+
+[1mdiff --git a/dashboard.html b/dashboard.html[m
+[1mnew file mode 100644[m
+[1mindex 0000000..c3dfb9a[m
+[1m--- /dev/null[m
+[1m+++ b/dashboard.html[m
+[36m@@ -0,0 +1,245 @@[m
+[32m+[m[32m<!DOCTYPE html>[m
+[32m+[m[32m<html lang="es">[m
+[32m+[m[32m<head>[m
+[32m+[m[32m    <meta charset="UTF-8">[m
+[32m+[m[32m    <meta name="viewport" content="width=device-width, initial-scale=1.0">[m
+[32m+[m[32m    <title>Dashboard Peiper</title>[m
+[32m+[m[32m    <style>[m
+[32m+[m[32m        :root {[m
+[32m+[m[32m            --color-green: #00ff00;[m
+[32m+[m[32m            --color-dark-green: #001a00;[m
+[32m+[m[32m            --color-black: #000000;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        body, html {[m
+[32m+[m[32m            height: 100%;[m
+[32m+[m[32m            margin: 0;[m
+[32m+[m[32m            font-family: Arial, sans-serif;[m
+[32m+[m[32m            background-color: var(--color-black);[m
+[32m+[m[32m            color: var(--color-green);[m
+[32m+[m[32m        }[m
+[32m+[m[32m        .dashboard {[m
+[32m+[m[32m            display: flex;[m
+[32m+[m[32m            height: 100vh;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        .sidebar {[m
+[32m+[m[32m            width: 250px;[m
+[32m+[m[32m            background-color: var(--color-dark-green);[m
+[32m+[m[32m            padding: 1rem;[m
+[32m+[m[32m            display: flex;[m
+[32m+[m[32m            flex-direction: column;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        .logo {[m
+[32m+[m[32m            text-align: center;[m
+[32m+[m[32m            margin-bottom: 2rem;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        .logo img {[m
+[32m+[m[32m            max-width: 150px;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        .nav-list {[m
+[32m+[m[32m            list-style-type: none;[m
+[32m+[m[32m            padding: 0;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        .nav-item {[m
+[32m+[m[32m            margin-bottom: 0.5rem;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        .nav-link {[m
+[32m+[m[32m            display: flex;[m
+[32m+[m[32m            align-items: center;[m
+[32m+[m[32m            padding: 0.5rem;[m
+[32m+[m[32m            color: var(--color-green);[m
+[32m+[m[32m            text-decoration: none;[m
+[32m+[m[32m            transition: background-color 0.3s;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        .nav-link:hover {[m
+[32m+[m[32m            background-color: rgba(0, 255, 0, 0.1);[m
+[32m+[m[32m        }[m
+[32m+[m[32m        .nav-link svg {[m
+[32m+[m[32m            margin-right: 0.5rem;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        .main-content {[m
+[32m+[m[32m            flex-grow: 1;[m
+[32m+[m[32m            display: flex;[m
+[32m+[m[32m            flex-direction: column;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        .top-bar {[m
+[32m+[m[32m            background-color: var(--color-dark-green);[m
+[32m+[m[32m            padding: 1rem;[m
+[32m+[m[32m            display: flex;[m
+[32m+[m[32m            justify-content: space-between;[m
+[32m+[m[32m            align-items: center;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        .search-form {[m
+[32m+[m[32m            display: flex;[m
+[32m+[m[32m            align-items: center;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        .search-input {[m
+[32m+[m[32m            padding: 0.5rem 0.5rem 0.5rem 2rem;[m
+[32m+[m[32m            border: 1px solid var(--color-green);[m
+[32m+[m[32m            background-color: rgba(0, 0, 0, 0.2);[m
+[32m+[m[32m            color: var(--color-green);[m
+[32m+[m[32m            border-radius: 4px;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        .search-icon {[m
+[32m+[m[32m            position: absolute;[m
+[32m+[m[32m            left: 0.5rem;[m
+[32m+[m[32m            color: var(--color-green);[m
+[32m+[m[32m        }[m
+[32m+[m[32m        .dashboard-content {[m
+[32m+[m[32m            flex-grow: 1;[m
+[32m+[m[32m            padding: 2rem;[m
+[32m+[m[32m            overflow-y: auto;[m
+[32m+[m[32m            background: linear-gradient(to bottom, var(--color-black), var(--color-dark-green));[m
+[32m+[m[32m        }[m
+[32m+[m[32m        .dashboard-title {[m
+[32m+[m[32m            font-size: 2rem;[m
+[32m+[m[32m            margin-bottom: 1rem;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        .card-grid {[m
+[32m+[m[32m            display: grid;[m
+[32m+[m[32m            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));[m
+[32m+[m[32m            gap: 1rem;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        .card {[m
+[32m+[m[32m            background-color: var(--color-dark-green);[m
+[32m+[m[32m            border: 1px solid rgba(0, 255, 0, 0.3);[m
+[32m+[m[32m            border-radius: 8px;[m
+[32m+[m[32m            padding: 1rem;[m
+[32m+[m[32m            transition: border-color 0.3s;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        .card:hover {[m
+[32m+[m[32m            border-color: var(--color-green);[m
+[32m+[m[32m        }[m
+[32m+[m[32m        .card-header {[m
+[32m+[m[32m            display: flex;[m
+[32m+[m[32m            justify-content: space-between;[m
+[32m+[m[32m            align-items: center;[m
+[32m+[m[32m            margin-bottom: 0.5rem;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        .card-title {[m
+[32m+[m[32m            font-size: 1rem;[m
+[32m+[m[32m            font-weight: bold;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        .card-content {[m
+[32m+[m[32m            font-size: 1.5rem;[m
+[32m+[m[32m            font-weight: bold;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        .card-subtitle {[m
+[32m+[m[32m            font-size: 0.8rem;[m
+[32m+[m[32m            color: rgba(0, 255, 0, 0.6);[m
+[32m+[m[32m        }[m
+[32m+[m[32m        @media (max-width: 768px) {[m
+[32m+[m[32m            .sidebar {[m
+[32m+[m[32m                position: fixed;[m
+[32m+[m[32m                left: -250px;[m
+[32m+[m[32m                top: 0;[m
+[32m+[m[32m                bottom: 0;[m
+[32m+[m[32m                z-index: 1000;[m
+[32m+[m[32m                transition: left 0.3s;[m
+[32m+[m[32m            }[m
+[32m+[m[32m            .sidebar.open {[m
+[32m+[m[32m                left: 0;[m
+[32m+[m[32m            }[m
+[32m+[m[32m            .menu-toggle {[m
+[32m+[m[32m                display: block;[m
+[32m+[m[32m            }[m
+[32m+[m[32m        }[m
+[32m+[m[32m        .menu-toggle {[m
+[32m+[m[32m            background: none;[m
+[32m+[m[32m            border: none;[m
+[32m+[m[32m            color: var(--color-green);[m
+[32m+[m[32m            font-size: 1.5rem;[m
+[32m+[m[32m            cursor: pointer;[m
+[32m+[m[32m            display: none;[m
+[32m+[m[32m        }[m
+[32m+[m[32m    </style>[m
+[32m+[m[32m</head>[m
+[32m+[m[32m<body>[m
+[32m+[m[32m    <div class="dashboard">[m
+[32m+[m[32m        <aside class="sidebar" id="sidebar">[m
+[32m+[m[32m            <div class="logo">[m
+[32m+[m[32m                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/images-owP3tMIi30W1DirySRMIwswIjiDDZd.png" alt="Peiper Unit Companies Logo">[m
+[32m+[m[32m            </div>[m
+[32m+[m[32m            <nav>[m
+[32m+[m[32m                <ul class="nav-list">[m
+[32m+[m[32m                    <li class="nav-item">[m
+[32m+[m[32m                        <a href="t_autos.html" class="nav-link">[m
+[32m+[m[32m                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg>[m
+[32m+[m[32m                            Coches[m
+[32m+[m[32m                        </a>[m
+[32m+[m[32m                    </li>[m
+[32m+[m[32m                    <li class="nav-item">[m
+[32m+[m[32m                        <a href="#" class="nav-link">[m
+[32m+[m[32m                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 17h4V5H2v12h3m9-9h7m-7 4h7"/><path d="M18 17h1c1 0 2-1 2-2V8l-3-3h-4"/><path d="M9 17h1"/></svg>[m
+[32m+[m[32m                            Gruas[m
+[32m+[m[32m                        </a>[m
+[32m+[m[32m                    </li>[m
+[32m+[m[32m                    <li class="nav-item">[m
+[32m+[m[32m                        <a href="#" class="nav-link">[m
+[32m+[m[32m                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.29 7 12 12 20.71 7"/><line x1="12" y1="22" x2="12" y2="12"/></svg>[m
+[32m+[m[32m                            Accesorios[m
+[32m+[m[32m                        </a>[m
+[32m+[m[32m                    </li>[m
+[32m+[m[32m                    <li class="nav-item">[m
+[32m+[m[32m                        <a href="#" class="nav-link">[m
+[32m+[m[32m                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>[m
+[32m+[m[32m                            Contenedores[m
+[32m+[m[32m                        </a>[m
+[32m+[m[32m                    </li>[m
+[32m+[m[32m                </ul>[m
+[32m+[m[32m            </nav>[m
+[32m+[m[32m        </aside>[m
+[32m+[m[32m        <div class="main-content">[m
+[32m+[m[32m            <header class="top-bar">[m
+[32m+[m[32m                <button class="menu-toggle" id="menu-toggle">☰</button>[m
+[32m+[m[32m                <form class="search-form">[m
+[32m+[m[32m                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="search-icon"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>[m
+[32m+[m[32m                    <input type="search" placeholder="Buscar..." class="search-input">[m
+[32m+[m[32m                </form>[m
+[32m+[m[32m            </header>[m
+[32m+[m[32m            <main class="dashboard-content">[m
+[32m+[m[32m                <h1 class="dashboard-title">Dashboard</h1>[m
+[32m+[m[32m                <div class="card-grid">[m
+[32m+[m[32m                    <div class="card">[m
+[32m+[m[32m                        <div class="card-header">[m
+[32m+[m[32m                            <form action="t_autos.html" method="get">[m
+[32m+[m[32m                            <span class="card-title">Coches</span>[m
+[32m+[m[32m                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg>[m
+[32m+[m[32m                        </div>[m
+[32m+[m[32m                        <div class="card-content">42</div>[m
+[32m+[m[32m                        <div class="card-subtitle">Unidades disponibles</div>[m
+[32m+[m[32m                    </div>[m
+[32m+[m[32m                    <div class="card">[m
+[32m+[m[32m                        <div class="card-header">[m
+[32m+[m[32m                            <span class="card-title">Gruas</span>[m
+[32m+[m[32m                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 17h4V5H2v12h3m9-9h7m-7 4h7"/><path d="M18 17h1c1 0 2-1 2-2V8l-3-3h-4"/><path d="M9 17h1"/></svg>[m
+[32m+[m[32m                        </div>[m
+[32m+[m[32m                        <div class="card-content">15</div>[m
+[32m+[m[32m                        <div class="card-subtitle">Unidades disponibles</div>[m
+[32m+[m[32m                    </div>[m
+[32m+[m[32m                    <div class="card">[m
+[32m+[m[32m                        <div class="card-header">[m
+[32m+[m[32m                            <span class="card-title">Accesorios</span>[m
+[32m+[m[32m                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.29 7 12 12 20.71 7"/><line x1="12" y1="22" x2="12" y2="12"/></svg>[m
+[32m+[m[32m                        </div>[m
+[32m+[m[32m                        <div class="card-content">78</div>[m
+[32m+[m[32m                        <div class="card-subtitle">Unidades disponibles</div>[m
+[32m+[m[32m                    </div>[m
+[32m+[m[32m                    <div class="card">[m
+[32m+[m[32m                        <div class="card-header">[m
+[32m+[m[32m                            <span class="card-title">Contenedores</span>[m
+[32m+[m[32m                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>[m
+[32m+[m[32m                        </div>[m
+[32m+[m[32m                        <div class="card-content">23</div>[m
+[32m+[m[32m                        <div class="card-subtitle">Unidades disponibles</div>[m
+[32m+[m[32m                    </div>[m
+[32m+[m[32m                </div>[m
+[32m+[m[32m            </main>[m
+[32m+[m[32m        </div>[m
+[32m+[m[32m    </div>[m
+[32m+[m[32m    <script>[m
+[32m+[m[32m        document.getElementById('menu-toggle').addEventListener('click', function() {[m
+[32m+[m[32m            document.getElementById('sidebar').classList.toggle('open');[m
+[32m+[m[32m        });[m
+[32m+[m[32m    </script>[m
+[32m+[m[32m</body>[m
+[32m+[m[32m</html>[m
+\ No newline at end of file[m
+[1mdiff --git a/index.html.html b/index.html.html[m
+[1mnew file mode 100644[m
+[1mindex 0000000..a1312fc[m
+[1m--- /dev/null[m
+[1m+++ b/index.html.html[m
+[36m@@ -0,0 +1,113 @@[m
+[32m+[m[32m<!DOCTYPE html>[m
+[32m+[m[32m<html lang="es">[m
+[32m+[m[32m<head>[m
+[32m+[m[32m    <meta charset="UTF-8">[m
+[32m+[m[32m    <meta name="viewport" content="width=device-width, initial-scale=1.0">[m
+[32m+[m[32m    <title>Página de Inicio de Sesión</title>[m
+[32m+[m[32m    <style>[m
+[32m+[m[32m        body, html {[m
+[32m+[m[32m            height: 100%;[m
+[32m+[m[32m            margin: 0;[m
+[32m+[m[32m            font-family: Arial, sans-serif;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        .container {[m
+[32m+[m[32m            min-height: 100vh;[m
+[32m+[m[32m            display: flex;[m
+[32m+[m[32m            align-items: center;[m
+[32m+[m[32m            justify-content: center;[m
+[32m+[m[32m            background-color: black;[m
+[32m+[m[32m            padding: 1rem;[m
+[32m+[m[32m            position: relative;[m
+[32m+[m[32m            overflow: hidden;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        .gradient-bg {[m
+[32m+[m[32m            position: absolute;[m
+[32m+[m[32m            inset: 0;[m
+[32m+[m[32m            background: linear-gradient(to bottom, #00ff00, #005500, black);[m
+[32m+[m[32m            opacity: 0.4;[m
+[32m+[m[32m            filter: blur(3rem);[m
+[32m+[m[32m        }[m
+[32m+[m[32m        .gradient-overlay {[m
+[32m+[m[32m            position: absolute;[m
+[32m+[m[32m            inset: 0;[m
+[32m+[m[32m            background: linear-gradient(to bottom, #00ff00, #005500, black);[m
+[32m+[m[32m            clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);[m
+[32m+[m[32m            opacity: 0.7;[m
+[32m+[m[32m            z-index: 10;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        .card {[m
+[32m+[m[32m            width: 100%;[m
+[32m+[m[32m            max-width: 24rem;[m
+[32m+[m[32m            background-color: rgba(0, 0, 0, 0.4);[m
+[32m+[m[32m            backdrop-filter: blur(0.75rem);[m
+[32m+[m[32m            border: 1px solid rgba(0, 255, 0, 0.3);[m
+[32m+[m[32m            border-radius: 0.5rem;[m
+[32m+[m[32m            padding: 1.5rem;[m
+[32m+[m[32m            position: relative;[m
+[32m+[m[32m            z-index: 20;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        .logo {[m
+[32m+[m[32m            display: block;[m
+[32m+[m[32m            margin: 0 auto 1rem;[m
+[32m+[m[32m            max-width: 200px;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        .form-group {[m
+[32m+[m[32m            margin-bottom: 1rem;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        label {[m
+[32m+[m[32m            display: block;[m
+[32m+[m[32m            margin-bottom: 0.5rem;[m
+[32m+[m[32m            color: #00ff00;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        input {[m
+[32m+[m[32m            width: 100%;[m
+[32m+[m[32m            padding: 0.5rem;[m
+[32m+[m[32m            background-color: rgba(0, 0, 0, 0.5);[m
+[32m+[m[32m            border: 1px solid rgba(0, 255, 0, 0.5);[m
+[32m+[m[32m            color: white;[m
+[32m+[m[32m            border-radius: 0.25rem;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        input::placeholder {[m
+[32m+[m[32m            color: rgba(0, 255, 0, 0.6);[m
+[32m+[m[32m        }[m
+[32m+[m[32m        input:focus {[m
+[32m+[m[32m            outline: none;[m
+[32m+[m[32m            border-color: #00ff00;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        button {[m
+[32m+[m[32m            width: 100%;[m
+[32m+[m[32m            padding: 0.75rem;[m
+[32m+[m[32m            background-color: #00ff00;[m
+[32m+[m[32m            color: black;[m
+[32m+[m[32m            border: none;[m
+[32m+[m[32m            border-radius: 0.25rem;[m
+[32m+[m[32m            font-weight: bold;[m
+[32m+[m[32m            cursor: pointer;[m
+[32m+[m[32m            transition: background-color 0.3s;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        button:hover {[m
+[32m+[m[32m            background-color: #00cc00;[m
+[32m+[m[32m        }[m
+[32m+[m[32m    </style>[m
+[32m+[m[32m</head>[m
+[32m+[m[32m<body>[m
+[32m+[m[32m    <div class="container">[m
+[32m+[m[32m        <div class="gradient-bg"></div>[m
+[32m+[m[32m        <div class="gradient-overlay"></div>[m
+[32m+[m[32m        <div class="card">[m
+[32m+[m[32m            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/images-owP3tMIi30W1DirySRMIwswIjiDDZd.png" alt="Peiper Unit Companies Logo" class="logo">[m
+[32m+[m[32m            <form action="dashboard.html" method="get">[m
+[32m+[m[32m                <div class="form-group">[m
+[32m+[m[32m                    <label for="email">Email</label>[m
+[32m+[m[32m                    <input type="email" id="email" placeholder="Ingresa tu email" required>[m
+[32m+[m[32m                </div>[m
+[32m+[m[32m                <div class="form-group">[m
+[32m+[m[32m                    <label for="password">Contraseña</label>[m
+[32m+[m[32m                    <input type="password" id="password" placeholder="Ingresa tu contraseña" required>[m
+[32m+[m[32m                </div>[m
+[32m+[m[32m                <button type="submit">Iniciar Sesión</button>[m
+[32m+[m[32m            </form>[m
+[32m+[m[32m        </div>[m
+[32m+[m[32m    </div>[m
+[32m+[m[32m</body>[m
+[32m+[m[32m</html>[m
+\ No newline at end of file[m
+[1mdiff --git a/t_autos.html b/t_autos.html[m
+[1mnew file mode 100644[m
+[1mindex 0000000..62d4292[m
+[1m--- /dev/null[m
+[1m+++ b/t_autos.html[m
+[36m@@ -0,0 +1,301 @@[m
+[32m+[m[32m<!DOCTYPE html>[m
+[32m+[m[32m<html lang="es">[m
+[32m+[m[32m<head>[m
+[32m+[m[32m    <meta charset="UTF-8">[m
+[32m+[m[32m    <meta name="viewport" content="width=device-width, initial-scale=1.0">[m
+[32m+[m[32m    <title>Ingreso de Contenedores - Peiper</title>[m
+[32m+[m[32m    <style>[m
+[32m+[m[32m        :root {[m
+[32m+[m[32m            --color-green: #00ff00;[m
+[32m+[m[32m            --color-dark-green: #001a00;[m
+[32m+[m[32m            --color-black: #000000;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        body, html {[m
+[32m+[m[32m            height: 100%;[m
+[32m+[m[32m            margin: 0;[m
+[32m+[m[32m            font-family: Arial, sans-serif;[m
+[32m+[m[32m            background-color: var(--color-black);[m
+[32m+[m[32m            color: var(--color-green);[m
+[32m+[m[32m        }[m
+[32m+[m[32m        .dashboard {[m
+[32m+[m[32m            display: flex;[m
+[32m+[m[32m            height: 100vh;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        .sidebar {[m
+[32m+[m[32m            width: 250px;[m
+[32m+[m[32m            background-color: var(--color-dark-green);[m
+[32m+[m[32m            padding: 1rem;[m
+[32m+[m[32m            display: flex;[m
+[32m+[m[32m            flex-direction: column;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        .logo {[m
+[32m+[m[32m            text-align: center;[m
+[32m+[m[32m            margin-bottom: 2rem;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        .logo img {[m
+[32m+[m[32m            max-width: 150px;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        .nav-list {[m
+[32m+[m[32m            list-style-type: none;[m
+[32m+[m[32m            padding: 0;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        .nav-item {[m
+[32m+[m[32m            margin-bottom: 0.5rem;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        .nav-link {[m
+[32m+[m[32m            display: flex;[m
+[32m+[m[32m            align-items: center;[m
+[32m+[m[32m            padding: 0.5rem;[m
+[32m+[m[32m            color: var(--color-green);[m
+[32m+[m[32m            text-decoration: none;[m
+[32m+[m[32m            transition: background-color 0.3s;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        .nav-link:hover {[m
+[32m+[m[32m            background-color: rgba(0, 255, 0, 0.1);[m
+[32m+[m[32m        }[m
+[32m+[m[32m        .nav-link svg {[m
+[32m+[m[32m            margin-right: 0.5rem;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        .main-content {[m
+[32m+[m[32m            flex-grow: 1;[m
+[32m+[m[32m            display: flex;[m
+[32m+[m[32m            flex-direction: column;[m
+[32m+[m[32m            overflow-y: auto;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        .top-bar {[m
+[32m+[m[32m            background-color: var(--color-dark-green);[m
+[32m+[m[32m            padding: 1rem;[m
+[32m+[m[32m            display: flex;[m
+[32m+[m[32m            justify-content: space-between;[m
+[32m+[m[32m            align-items: center;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        .page-title {[m
+[32m+[m[32m            font-size: 1.5rem;[m
+[32m+[m[32m            font-weight: bold;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        .content-area {[m
+[32m+[m[32m            padding: 2rem;[m
+[32m+[m[32m            background: linear-gradient(to bottom, var(--color-black), var(--color-dark-green));[m
+[32m+[m[32m        }[m
+[32m+[m[32m        .data-table {[m
+[32m+[m[32m            width: 100%;[m
+[32m+[m[32m            border-collapse: collapse;[m
+[32m+[m[32m            margin-bottom: 1rem;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        .data-table th, .data-table td {[m
+[32m+[m[32m            border: 1px solid var(--color-green);[m
+[32m+[m[32m            padding: 0.5rem;[m
+[32m+[m[32m            text-align: left;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        .data-table th {[m
+[32m+[m[32m            background-color: var(--color-dark-green);[m
+[32m+[m[32m        }[m
+[32m+[m[32m        .data-table input, .data-table select {[m
+[32m+[m[32m            width: 100%;[m
+[32m+[m[32m            padding: 0.3rem;[m
+[32m+[m[32m            background-color: var(--color-black);[m
+[32m+[m[32m            border: 1px solid var(--color-green);[m
+[32m+[m[32m            color: var(--color-green);[m
+[32m+[m[32m        }[m
+[32m+[m[32m        .button-group {[m
+[32m+[m[32m            display: flex;[m
+[32m+[m[32m            gap: 0.5rem;[m
+[32m+[m[32m            margin-top: 1rem;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        .btn {[m
+[32m+[m[32m            padding: 0.5rem 1rem;[m
+[32m+[m[32m            background-color: var(--color-dark-green);[m
+[32m+[m[32m            color: var(--color-green);[m
+[32m+[m[32m            border: 1px solid var(--color-green);[m
+[32m+[m[32m            cursor: pointer;[m
+[32m+[m[32m            transition: background-color 0.3s;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        .btn:hover {[m
+[32m+[m[32m            background-color: var(--color-green);[m
+[32m+[m[32m            color: var(--color-black);[m
+[32m+[m[32m        }[m
+[32m+[m[32m        @media (max-width: 768px) {[m
+[32m+[m[32m            .dashboard {[m
+[32m+[m[32m                flex-direction: column;[m
+[32m+[m[32m            }[m
+[32m+[m[32m            .sidebar {[m
+[32m+[m[32m                width: 100%;[m
+[32m+[m[32m                order: 2;[m
+[32m+[m[32m            }[m
+[32m+[m[32m            .main-content {[m
+[32m+[m[32m                order: 1;[m
+[32m+[m[32m            }[m
+[32m+[m[32m            .data-table {[m
+[32m+[m[32m                font-size: 0.8rem;[m
+[32m+[m[32m            }[m
+[32m+[m[32m            .button-group {[m
+[32m+[m[32m                flex-wrap: wrap;[m
+[32m+[m[32m            }[m
+[32m+[m[32m        }[m
+[32m+[m[32m    </style>[m
+[32m+[m[32m</head>[m
+[32m+[m[32m<body>[m
+[32m+[m[32m    <div class="dashboard">[m
+[32m+[m[32m        <aside class="sidebar">[m
+[32m+[m[32m            <div class="logo">[m
+[32m+[m[32m                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/images-owP3tMIi30W1DirySRMIwswIjiDDZd.png" alt="Peiper Unit Companies Logo">[m
+[32m+[m[32m            </div>[m
+[32m+[m[32m            <nav>[m
+[32m+[m[32m                <ul class="nav-list">[m
+[32m+[m[32m                    <li class="nav-item">[m
+[32m+[m[32m                        <a href="#" class="nav-link">[m
+[32m+[m[32m                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg>[m
+[32m+[m[32m                            Coches[m
+[32m+[m[32m                        </a>[m
+[32m+[m[32m                    </li>[m
+[32m+[m[32m                    <li class="nav-item">[m
+[32m+[m[32m                        <a href="#" class="nav-link">[m
+[32m+[m[32m                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 17h4V5H2v12h3m9-9h7m-7 4h7"/><path d="M18 17h1c1 0 2-1 2-2V8l-3-3h-4"/><path d="M9 17h1"/></svg>[m
+[32m+[m[32m                            Gruas[m
+[32m+[m[32m                        </a>[m
+[32m+[m[32m                    </li>[m
+[32m+[m[32m                    <li class="nav-item">[m
+[32m+[m[32m                        <a href="#" class="nav-link">[m
+[32m+[m[32m                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.29 7 12 12 20.71 7"/><line x1="12" y1="22" x2="12" y2="12"/></svg>[m
+[32m+[m[32m                            Accesorios[m
+[32m+[m[32m                        </a>[m
+[32m+[m[32m                    </li>[m
+[32m+[m[32m                    <li class="nav-item">[m
+[32m+[m[32m                        <a href="#" class="nav-link">[m
+[32m+[m[32m                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>[m
+[32m+[m[32m                            Contenedores[m
+[32m+[m[32m                        </a>[m
+[32m+[m[32m                    </li>[m
+[32m+[m[32m                </ul>[m
+[32m+[m[32m            </nav>[m
+[32m+[m[32m        </aside>[m
+[32m+[m[32m        <div class="main-content">[m
+[32m+[m[32m            <header class="top-bar">[m
+[32m+[m[32m                <h1 class="page-title">Ingreso de Datos de Vehículos</h1>[m
+[32m+[m[32m            </header>[m
+[32m+[m[32m            <main class="content-area">[m
+[32m+[m[32m                <form id="vehicleForm">[m
+[32m+[m[32m                    <table class="data-table">[m
+[32m+[m[32m                        <tr>[m
+[32m+[m[32m                            <th>Campo</th>[m
+[32m+[m[32m                            <th>Valor</th>[m
+[32m+[m[32m                        </tr>[m
+[32m+[m[32m                        <tr>[m
+[32m+[m[32m                            <td><label for="id">ID</label></td>[m
+[32m+[m[32m                            <td><input type="text" id="id" name="id" readonly></td>[m
+[32m+[m[32m                        </tr>[m
+[32m+[m[32m                        <tr>[m
+[32m+[m[32m                            <td><label for="num_serie">Número de Serie</label></td>[m
+[32m+[m[32m                            <td><input type="text" id="num_serie" name="num_serie" required></td>[m
+[32m+[m[32m                        </tr>[m
+[32m+[m[32m                        <tr>[m
+[32m+[m[32m                            <td><label for="modelo">Modelo</label></td>[m
+[32m+[m[32m                            <td><input type="text" id="modelo" name="modelo" required></td>[m
+[32m+[m[32m                        </tr>[m
+[32m+[m[32m                        <tr>[m
+[32m+[m[32m                            <td><label for="marca">Marca</label></td>[m
+[32m+[m[32m                            <td><input type="text" id="marca" name="marca" required></td>[m
+[32m+[m[32m                        </tr>[m
+[32m+[m[32m                        <tr>[m
+[32m+[m[32m                            <td><label for="color">Color</label></td>[m
+[32m+[m[32m                            <td><input type="text" id="color" name="color" required></td>[m
+[32m+[m[32m                        </tr>[m
+[32m+[m[32m                        <tr>[m
+[32m+[m[32m                            <td><label for="anio">Año</label></td>[m
+[32m+[m[32m                            <td><input type="number" id="anio" name="anio" required></td>[m
+[32m+[m[32m                        </tr>[m
+[32m+[m[32m                        <tr>[m
+[32m+[m[32m                            <td><label for="fecha_ingreso">Fecha de Ingreso</label></td>[m
+[32m+[m[32m                            <td><input type="date" id="fecha_ingreso" name="fecha_ingreso" required></td>[m
+[32m+[m[32m                        </tr>[m
+[32m+[m[32m                        <tr>[m
+[32m+[m[32m                            <td><label for="fecha_salida">Fecha de Salida</label></td>[m
+[32m+[m[32m                            <td><input type="date" id="fecha_salida" name="fecha_salida"></td>[m
+[32m+[m[32m                        </tr>[m
+[32m+[m[32m                        <tr>[m
+[32m+[m[32m                            <td><label for="dias_estadia">Días de Estadía</label></td>[m
+[32m+[m[32m                            <td><input type="number" id="dias_estadia" name="dias_estadia" readonly></td>[m
+[32m+[m[32m                        </tr>[m
+[32m+[m[32m                        <tr>[m
+[32m+[m[32m                            <td><label for="tarifa_dia">Tarifa por Día</label></td>[m
+[32m+[m[32m                            <td><input type="number" id="tarifa_dia" name="tarifa_dia" step="0.01" required></td>[m
+[32m+[m[32m                        </tr>[m
+[32m+[m[32m                        <tr>[m
+[32m+[m[32m                            <td><label for="costo_total_estadia">Costo Total de Estadía</label></td>[m
+[32m+[m[32m                            <td><input type="number" id="costo_total_estadia" name="costo_total_estadia" step="0.01" readonly></td>[m
+[32m+[m[32m                        </tr>[m
+[32m+[m[32m                        <tr>[m
+[32m+[m[32m                            <td><label for="condiciones_entrada">Condiciones de Entrada</label></td>[m
+[32m+[m[32m                            <td><textarea id="condiciones_entrada" name="condiciones_entrada" rows="3"></textarea></td>[m
+[32m+[m[32m                        </tr>[m
+[32m+[m[32m                        <tr>[m
+[32m+[m[32m                            <td><label for="inspeccion">Inspección</label></td>[m
+[32m+[m[32m                            <td><textarea id="inspeccion" name="inspeccion" rows="3"></textarea></td>[m
+[32m+[m[32m                        </tr>[m
+[32m+[m[32m                        <tr>[m
+[32m+[m[32m                            <td><label for="comentarios">Comentarios</label></td>[m
+[32m+[m[32m                            <td><textarea id="comentarios" name="comentarios" rows="3"></textarea></td>[m
+[32m+[m[32m                        </tr>[m
+[32m+[m[32m                        <tr>[m
+[32m+[m[32m                            <td><label for="empleado_registro">Empleado de Registro</label></td>[m
+[32m+[m[32m                            <td><input type="text" id="empleado_registro" name="empleado_registro" required></td>[m
+[32m+[m[32m                        </tr>[m
+[32m+[m[32m                    </table>[m
+[32m+[m[32m                    <div class="button-group">[m
+[32m+[m[32m                        <button type="submit" class="btn">Guardar</button>[m
+[32m+[m[32m                        <button type="button" class="btn" id="editBtn">Editar</button>[m
+[32m+[m[32m                        <button type="button" class="btn" id="deleteBtn">Eliminar</button>[m
+[32m+[m[32m                        <button type="reset" class="btn">Borrar</button>[m
+[32m+[m[32m                        <button type="button" class="btn" id="newBtn">Nuevo</button>[m
+[32m+[m[32m                        <button type="button" class="btn" id="backBtn">Regresar</button>[m
+[32m+[m[32m                    </div>[m
+[32m+[m[32m                </form>[m
+[32m+[m[32m            </main>[m
+[32m+[m[32m        </div>[m
+[32m+[m[32m    </div>[m
+[32m+[m[32m    <script>[m
+[32m+[m[32m        // Calcula los días de estadía y el costo total[m
+[32m+[m[32m        function calcularEstadia() {[m
+[32m+[m[32m            const fechaIngreso = new Date(document.getElementById('fecha_ingreso').value);[m
+[32m+[m[32m            const fechaSalida = new Date(document.getElementById('fecha_salida').value);[m
+[32m+[m[32m            const tarifaDia = parseFloat(document.getElementById('tarifa_dia').value);[m
+[32m+[m
+[32m+[m[32m            if (fechaIngreso && fechaSalida && tarifaDia) {[m
+[32m+[m[32m                const diferencia = fechaSalida.getTime() - fechaIngreso.getTime();[m
+[32m+[m[32m                const dias = Math.ceil(diferencia / (1000 * 3600 * 24));[m
+[32m+[m[32m                document.getElementById('dias_estadia').value = dias;[m
+[32m+[m[32m                document.getElementById('costo_total_estadia').value = (dias * tarifaDia).toFixed(2);[m
+[32m+[m[32m            }[m
+[32m+[m[32m        }[m
+[32m+[m
+[32m+[m[32m        // Event listeners[m
+[32m+[m[32m        document.getElementById('fecha_ingreso').addEventListener('change', calcularEstadia);[m
+[32m+[m[32m        document.getElementById('fecha_salida').addEventListener('change', calcularEstadia);[m
+[32m+[m[32m        document.getElementById('tarifa_dia').addEventListener('input', calcularEstadia);[m
+[32m+[m
+[32m+[m[32m        document.getElementById('vehicleForm').addEventListener('submit', function(e) {[m
+[32m+[m[32m            e.preventDefault();[m
+[32m+[m[32m            alert('Datos guardados (simulación)');[m
+[32m+[m[32m        });[m
+[32m+[m
+[32m+[m[32m        document.getElementById('editBtn').addEventListener('click', function() {[m
+[32m+[m[32m            alert('Modo edición activado (simulación)');[m
+[32m+[m[32m        });[m
+[32m+[m
+[32m+[m[32m        document.getElementById('deleteBtn').addEventListener('click', function() {[m
+[32m+[m[32m            if (confirm('¿Estás seguro de que quieres eliminar este registro?')) {[m
+[32m+[m[32m                alert('Registro eliminado (simulación)');[m
+[32m+[m[32m            }[m
+[32m+[m[32m        });[m
+[32m+[m
+[32m+[m[32m        document.getElementById('newBtn').addEventListener('click', function() {[m
+[32m+[m[32m            document.getElementById('vehicleForm').reset();[m
+[32m+[m[32m            document.getElementById('id').value = '';[m
+[32m+[m[32m        });[m
+[32m+[m
+[32m+[m[32m        document.getElementById('backBtn').addEventListener('click', function() {[m
+[32m+[m[32m            alert('Regresando a la página anterior (simulación)');[m
+[32m+[m[32m        });[m
+[32m+[m[32m    </script>[m
+[32m+[m[32m</body>[m
+[32m+[m[32m</html>[m
+\ No newline at end of file[m
