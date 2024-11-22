@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingreso de Contenedores - Peiper</title>
+    <style>
+        :root {
+            --color-green: #00ff00;
+            --color-dark-green: #001a00;
+            --color-black: #000000;
+        }
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: var(--color-black);
+            color: var(--color-green);
+        }
+        .dashboard {
+            display: flex;
+            height: 100vh;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: var(--color-dark-green);
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+        }
+        .logo {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .logo img {
+            max-width: 150px;
+        }
+        .nav-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .nav-item {
+            margin-bottom: 0.5rem;
+        }
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem;
+            color: var(--color-green);
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        .nav-link:hover {
+            background-color: rgba(0, 255, 0, 0.1);
+        }
+        .nav-link svg {
+            margin-right: 0.5rem;
+        }
+        .main-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+        .top-bar {
+            background-color: var(--color-dark-green);
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .page-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .content-area {
+            padding: 2rem;
+            background: linear-gradient(to bottom, var(--color-black), var(--color-dark-green));
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1rem;
+        }
+        .data-table th, .data-table td {
+            border: 1px solid var(--color-green);
+            padding: 0.5rem;
+            text-align: left;
+        }
+        .data-table th {
+            background-color: var(--color-dark-green);
+        }
+        .data-table input, .data-table select {
+            width: 100%;
+            padding: 0.3rem;
+            background-color: var(--color-black);
+            border: 1px solid var(--color-green);
+            color: var(--color-green);
+        }
+        .button-group {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        .btn {
+            padding: 0.5rem 1rem;
+            background-color: var(--color-dark-green);
+            color: var(--color-green);
+            border: 1px solid var(--color-green);
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: var(--color-green);
+            color: var(--color-black);
+        }
+        @media (max-width: 768px) {
+            .dashboard {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                order: 2;
+            }
+            .main-content {
+                order: 1;
+            }
+            .data-table {
+                font-size: 0.8rem;
+            }
+            .button-group {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/images-owP3tMIi30W1DirySRMIwswIjiDDZd.png" alt="Peiper Unit Companies Logo">
+            </div>
+            <nav>
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg>
+                            Coches
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 17h4V5H2v12h3m9-9h7m-7 4h7"/><path d="M18 17h1c1 0 2-1 2-2V8l-3-3h-4"/><path d="M9 17h1"/></svg>
+                            Gruas
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.29 7 12 12 20.71 7"/><line x1="12" y1="22" x2="12" y2="12"/></svg>
+                            Accesorios
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+                            Contenedores
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+        <div class="main-content">
+            <header class="top-bar">
+                <h1 class="page-title">Ingreso de Datos de Vehículos</h1>
+            </header>
+            <main class="content-area">
+                <form id="vehicleForm">
+                    <table class="data-table">
+                        <tr>
+                            <th>Campo</th>
+                            <th>Valor</th>
+                        </tr>
+                        <tr>
+                            <td><label for="id">ID</label></td>
+                            <td><input type="text" id="id" name="id" readonly></td>
+                        </tr>
+                        <tr>
+                            <td><label for="num_serie">Número de Serie</label></td>
+                            <td><input type="text" id="num_serie" name="num_serie" required></td>
+                        </tr>
+                        <tr>
+                            <td><label for="modelo">Modelo</label></td>
+                            <td><input type="text" id="modelo" name="modelo" required></td>
+                        </tr>
+                        <tr>
+                            <td><label for="marca">Marca</label></td>
+                            <td><input type="text" id="marca" name="marca" required></td>
+                        </tr>
+                        <tr>
+                            <td><label for="color">Color</label></td>
+                            <td><input type="text" id="color" name="color" required></td>
+                        </tr>
+                        <tr>
+                            <td><label for="anio">Año</label></td>
+                            <td><input type="number" id="anio" name="anio" required></td>
+                        </tr>
+                        <tr>
+                            <td><label for="fecha_ingreso">Fecha de Ingreso</label></td>
+                            <td><input type="date" id="fecha_ingreso" name="fecha_ingreso" required></td>
+                        </tr>
+                        <tr>
+                            <td><label for="fecha_salida">Fecha de Salida</label></td>
+                            <td><input type="date" id="fecha_salida" name="fecha_salida"></td>
+                        </tr>
+                        <tr>
+                            <td><label for="dias_estadia">Días de Estadía</label></td>
+                            <td><input type="number" id="dias_estadia" name="dias_estadia" readonly></td>
+                        </tr>
+                        <tr>
+                            <td><label for="tarifa_dia">Tarifa por Día</label></td>
+                            <td><input type="number" id="tarifa_dia" name="tarifa_dia" step="0.01" required></td>
+                        </tr>
+                        <tr>
+                            <td><label for="costo_total_estadia">Costo Total de Estadía</label></td>
+                            <td><input type="number" id="costo_total_estadia" name="costo_total_estadia" step="0.01" readonly></td>
+                        </tr>
+                        <tr>
+                            <td><label for="condiciones_entrada">Condiciones de Entrada</label></td>
+                            <td><textarea id="condiciones_entrada" name="condiciones_entrada" rows="3"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td><label for="inspeccion">Inspección</label></td>
+                            <td><textarea id="inspeccion" name="inspeccion" rows="3"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td><label for="comentarios">Comentarios</label></td>
+                            <td><textarea id="comentarios" name="comentarios" rows="3"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td><label for="empleado_registro">Empleado de Registro</label></td>
+                            <td><input type="text" id="empleado_registro" name="empleado_registro" required></td>
+                        </tr>
+                    </table>
+                    <div class="button-group">
+                        <button type="submit" class="btn">Guardar</button>
+                        <button type="button" class="btn" id="editBtn">Editar</button>
+                        <button type="button" class="btn" id="deleteBtn">Eliminar</button>
+                        <button type="reset" class="btn">Borrar</button>
+                        <button type="button" class="btn" id="newBtn">Nuevo</button>
+                        <button type="button" class="btn" id="backBtn">Regresar</button>
+                    </div>
+                </form>
+            </main>
+        </div>
+    </div>
+    <script>
+        // Calcula los días de estadía y el costo total
+        function calcularEstadia() {
+            const fechaIngreso = new Date(document.getElementById('fecha_ingreso').value);
+            const fechaSalida = new Date(document.getElementById('fecha_salida').value);
+            const tarifaDia = parseFloat(document.getElementById('tarifa_dia').value);
+
+            if (fechaIngreso && fechaSalida && tarifaDia) {
+                const diferencia = fechaSalida.getTime() - fechaIngreso.getTime();
+                const dias = Math.ceil(diferencia / (1000 * 3600 * 24));
+                document.getElementById('dias_estadia').value = dias;
+                document.getElementById('costo_total_estadia').value = (dias * tarifaDia).toFixed(2);
+            }
+        }
+
+        // Event listeners
+        document.getElementById('fecha_ingreso').addEventListener('change', calcularEstadia);
+        document.getElementById('fecha_salida').addEventListener('change', calcularEstadia);
+        document.getElementById('tarifa_dia').addEventListener('input', calcularEstadia);
+
+        document.getElementById('vehicleForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Datos guardados (simulación)');
+        });
+
+        document.getElementById('editBtn').addEventListener('click', function() {
+            alert('Modo edición activado (simulación)');
+        });
+
+        document.getElementById('deleteBtn').addEventListener('click', function() {
+            if (confirm('¿Estás seguro de que quieres eliminar este registro?')) {
+                alert('Registro eliminado (simulación)');
+            }
+        });
+
+        document.getElementById('newBtn').addEventListener('click', function() {
+            document.getElementById('vehicleForm').reset();
+            document.getElementById('id').value = '';
+        });
+
+        document.getElementById('backBtn').addEventListener('click', function() {
+            alert('Regresando a la página anterior (simulación)');
+        });
+    </script>
+</body>
+</html>
