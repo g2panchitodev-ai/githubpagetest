@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ingreso de Datos de Gruas - Peiper</title>
-    <link rel="stylesheet" href="css/style.grua.css"> <!-- Conexión con el archivo CSS -->
+    <title>Ingreso de Datos de Accesorios - Peiper</title>
+    <link rel="stylesheet" href="css/style.accesorio.css"> <!-- Conexión con el archivo CSS -->
     <style>
-
         :root {
             --color-green: #00ff00;
             --color-dark-green: #001a00;
             --color-black: #000000;
+            --color-light-green: #ccffcc;
         }
         body, html {
             height: 100%;
@@ -203,8 +203,10 @@
             color: var(--color-green);
             box-sizing: border-box;
         }
-</style>
+    </style>
 </head>
+
+
 <body>
     <div class="dashboard">
         <aside class="sidebar" id="sidebar">
@@ -251,7 +253,7 @@
         <div class="main-content">
             <header class="top-bar">
                 <button class="menu-toggle" id="menu-toggle">☰</button>
-                <h1 class="page-title">Ingreso de Datos de Gruas</h1>
+                <h1 class="page-title">Ingreso de Datos de Accesorios</h1>
             </header>
             <main class="content-area">
                 <form id="containerForm">
@@ -262,48 +264,31 @@
                         </tr>
                         <tr>
                             <td><label for="id">ID</label></td>
-                            <td><input type="text" id="id" name="id" readonly></td>
+                            <td><input type="text" id="id" name="id" class="form-control" readonly></td>
                         </tr>
                         <tr>
                             <td><label for="vin">VIN</label></td>
-                            <td><input type="text" id="vin" name="vin" required></td>
+                            <td><input type="text" id="vin" name="vin" class="form-control"></td>
                         </tr>
                         <tr>
-                            <td><label for="peso">ID Cliente</label></td>
-                            <td><input type="varchar" id="peso" name="peso" required></td>
+                            <td><label for="id_cliente">ID Cliente</label></td>
+                            <td><input type="text" id="id_cliente" name="id_cliente" class="form-control"></td>
                         </tr>
                         <tr>
-                            <td><label for="empleado_registro">Empleado de Registro</label></td>
-                            <td>
-                                <select id="empleado_registro" name="empleado_registro" required>
-                                    <option value="">Seleccione un empleado</option>
-                                    <option value="1">Juan Pérez</option>
-                                    <option value="2">María García</option>
-                                    <option value="3">Carlos Rodríguez</option>
-                                    <option value="4">Ana Martínez</option>
-                                    <option value="5">Luis González</option>
-                                </select>
-                            </td>
+                            <td><label for="nombre">Nombre</label></td>
+                            <td><input type="text" id="nombre" name="nombre" class="form-control"></td>
                         </tr>
                         <tr>
-                            <td><label for="capacidad">Numero Serie</label></td>
-                            <td><input type="text" id="noserie" name="noserie" required></td>
+                            <td><label for="tipo_accesorio">Tipo Accesorio</label></td>
+                            <td><input type="text" id="tipo_accesorio" name="tipo_accesorio" class="form-control"></td>
                         </tr>
                         <tr>
-                            <td><label for="capacidad">Modelo</label></td>
-                            <td><input type="text" id="modelo" name="modelo" required></td>
+                            <td><label for="dimensiones">Dimensiones</label></td>
+                            <td><input type="text" id="dimensiones" name="dimensiones" class="form-control"></td>
                         </tr>
                         <tr>
-                            <td><label for="capacidad">Marca</label></td>
-                            <td><input type="text" id="marca" name="marca" required></td>
-                        </tr>
-                        <tr>
-                            <td><label for="capacidad">Color</label></td>
-                            <td><input type="text" id="color" name="color" required></td>
-                        </tr>
-                        <tr>
-                            <td><label for="capacidad">Año</label></td>
-                            <td><input type="text" id="anio" name="anio" required></td>
+                            <td><label for="comentarios">Comentarios</label></td>
+                            <td><textarea id="comentarios" name="comentarios" rows="3" class="form-control"></textarea></td>
                         </tr>
                         <tr>
                             <td><label for="fecha_ingreso">Fecha de Ingreso</label></td>
@@ -313,78 +298,73 @@
                             <td><label for="fecha_salida">Fecha de Salida</label></td>
                             <td><input type="date" id="fecha_salida" name="fecha_salida"></td>
                         </tr>
-                        <tr>
-                            <td><label for="comentarios">Comentarios</label></td>
-                            <td><textarea id="comentarios" name="comentarios" rows="3"></textarea></td>
-                        </tr>
-                    </table>
+                        </table>
 
 
-                    <div class="button-group">
-                        <button type="submit" class="btn">
-                            <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
-                            Guardar
-                        </button>
-                        <button type="button" class="btn" id="editBtn">
-                            <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
-                            Editar
-                        </button>
-                        <button type="button" class="btn" id="deleteBtn">
-                            <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
-                            Eliminar
-                        </button>
-                        <button type="reset" class="btn">
-                            <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v5h5"></path><path d="M3.05 13A9 9 0 1 0 6 5.3L3 8"></path></svg>
-                            Borrar
-                        </button>
-                        <button type="button" class="btn" id="newBtn">
-                            <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
-                            Nuevo
-                        </button>
-                        <a href="dashboard.html" class="btn" id="backBtn">
-                            <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-                            Regresar
-                        </a>
-                    </div>
-                </form>
-            </main>
+                        <div class="button-group">
+                            <button type="submit" class="btn">
+                                <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+                                Guardar
+                            </button>
+                            <button type="button" class="btn" id="editBtn">
+                                <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                                Editar
+                            </button>
+                            <button type="button" class="btn" id="deleteBtn">
+                                <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                                Eliminar
+                            </button>
+                            <button type="reset" class="btn">
+                                <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v5h5"></path><path d="M3.05 13A9 9 0 1 0 6 5.3L3 8"></path></svg>
+                                Borrar
+                            </button>
+                            <button type="button" class="btn" id="newBtn">
+                                <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+                                Nuevo
+                            </button>
+                            <a href="dashboard.html" class="btn" id="backBtn">
+                                <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                                Regresar
+                            </a>
+                        </div>
+                    </form>
+                </main>
+            </div>
         </div>
-    </div>
-
-
-    
-    <script>
-        document.getElementById('containerForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Datos guardados (simulación)');
-        });
-        document.getElementById('editBtn').addEventListener('click', function() {
-            alert('Modo edición activado (simulación)');
-        });
-        document.getElementById('deleteBtn').addEventListener('click', function() {
-            if (confirm('¿Estás seguro de que quieres eliminar este registro?')) {
-                alert('Registro eliminado (simulación)');
-            }
-        });
-        document.getElementById('newBtn').addEventListener('click', function() {
-            document.getElementById('containerForm').reset();
-            document.getElementById('id').value = '';
-        });
-        document.getElementById('backBtn').addEventListener('click', function() {
-            //This event listener is no longer needed since the back button is now a link.
-        });
-        document.getElementById('menu-toggle').addEventListener('click', function() {
-            document.getElementById('sidebar').classList.toggle('open');
-        });
-        document.querySelectorAll('.nav-link').forEach(function(link) {
-            link.addEventListener('click', function(e) {
-                document.querySelectorAll('.nav-item').forEach(function(item) {
-                    item.classList.remove('active');
-                });
-                this.closest('.nav-item').classList.add('active');
-                console.log('Navegando a:', this.getAttribute('href'));
+        <script>
+            document.getElementById('containerForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Datos guardados (simulación)');
             });
-        });
-    </script>
-</body>
-</html>
+    
+            document.getElementById('editBtn').addEventListener('click', function() {
+                alert('Modo edición activado (simulación)');
+            });
+    
+            document.getElementById('deleteBtn').addEventListener('click', function() {
+                if (confirm('¿Estás seguro de que quieres eliminar este registro?')) {
+                    alert('Registro eliminado (simulación)');
+                }
+            });
+    
+            document.getElementById('newBtn').addEventListener('click', function() {
+                document.getElementById('containerForm').reset();
+                document.getElementById('id').value = '';
+            });
+    
+            document.getElementById('menu-toggle').addEventListener('click', function() {
+                document.getElementById('sidebar').classList.toggle('open');
+            });
+    
+            document.querySelectorAll('.nav-link').forEach(function(link) {
+                link.addEventListener('click', function(e) {
+                    document.querySelectorAll('.nav-item').forEach(function(item) {
+                        item.classList.remove('active');
+                    });
+                    this.closest('.nav-item').classList.add('active');
+                    console.log('Navegando a:', this.getAttribute('href'));
+                });
+            });
+        </script>
+    </body>
+    </html>
