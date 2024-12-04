@@ -164,11 +164,62 @@
             .main-content {
                 order: 1;
             }
+            .search-form {
+                flex-direction: column;
+            }
+            .search-form input,
+            .search-form select,
+            .search-form button {
+                width: 100%;
+                margin-bottom: 0.5rem;
+            }
             .data-table {
                 font-size: 0.8rem;
             }
-            .button-group {
-                flex-wrap: wrap;
+            .data-table th,
+            .data-table td {
+                padding: 0.3rem;
+            }
+            .data-table.mobile-view thead {
+                display: none;
+            }
+            .data-table.mobile-view tbody tr {
+                display: block;
+                margin-bottom: 1rem;
+                border: 1px solid var(--color-green);
+            }
+            .data-table.mobile-view tbody td {
+                display: block;
+                text-align: right;
+                padding-left: 50%;
+                position: relative;
+            }
+            .data-table.mobile-view tbody td:before {
+                content: attr(data-label);
+                position: absolute;
+                left: 6px;
+                width: 45%;
+                padding-right: 10px;
+                white-space: nowrap;
+                text-align: left;
+                font-weight: bold;
+            }
+        }
+        @media (max-width: 480px) {
+            .content-area {
+                padding: 1rem;
+            }
+            .page-title {
+                font-size: 1.5rem;
+            }
+            .btn-back {
+                font-size: 0.9rem;
+            }
+            .btn-back .btn-text {
+                display: none;
+            }
+            .btn-back .icon {
+                margin-right: 0;
             }
         }
         .menu-toggle {
@@ -236,6 +287,28 @@
             background-color: rgba(0, 255, 0, 0.1);
             border-radius: 4px;
         }
+        .btn-back {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        .btn-back .icon {
+            width: 1em;
+            height: 1em;
+            margin-right: 0.5rem;
+        }
+        .search-form input[type="date"] {
+            flex-grow: 1;
+            padding: 0.5rem;
+            background-color: var(--color-black);
+            border: 1px solid var(--color-green);
+            color: var(--color-green);
+        }
+        .search-form input[type="date"]::-webkit-calendar-picker-indicator {
+            filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(86deg) brightness(118%) contrast(119%);
+        }
     </style>
 </head>
 <body>
@@ -288,6 +361,11 @@
                             Empleados
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="t_busqueda.html" class="nav-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                            Buscar
+                        </a>
                 </ul>
             </nav>
         </aside>
@@ -298,6 +376,13 @@
                 <h1 class="page-title">Búsqueda de Inventario</h1>
             </header>
             <main class="content-area">
+                <button onclick="history.back()" class="btn btn-back">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon">
+                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                        <polyline points="12 19 5 12 12 5"></polyline>
+                    </svg>
+                    Regresar
+                </button>
                 <form class="search-form" onsubmit="event.preventDefault(); performSearch();">
                     <input type="text" id="search-query" placeholder="Ingrese su búsqueda..." aria-label="Término de búsqueda">
                     <select id="search-category" aria-label="Categoría de búsqueda">
@@ -307,6 +392,8 @@
                         <option value="accesorios">Accesorios</option>
                         <option value="contenedores">Contenedores</option>
                     </select>
+                    <input type="date" id="fecha-entrada" name="fecha-entrada" aria-label="Fecha de entrada">
+                    <input type="date" id="fecha-salida" name="fecha-salida" aria-label="Fecha de salida">
                     <button type="submit" class="btn">Buscar</button>
                 </form>
                 <table class="data-table" id="results-table" style="display: none;">
@@ -315,6 +402,8 @@
                             <th>Título</th>
                             <th>Descripción</th>
                             <th>Categoría</th>
+                            <th>Fecha de Entrada</th>
+                            <th>Fecha de Salida</th>
                         </tr>
                     </thead>
                     <tbody id="results-body">
@@ -337,14 +426,16 @@
         function performSearch() {
             const query = document.getElementById('search-query').value;
             const category = document.getElementById('search-category').value;
+            const fechaEntrada = document.getElementById('fecha-entrada').value;
+            const fechaSalida = document.getElementById('fecha-salida').value;
             const resultsTable = document.getElementById('results-table');
             const resultsBody = document.getElementById('results-body');
 
             // Simulación de resultados (en una aplicación real, esto sería una llamada a una API)
             const mockResults = [
-                { title: "Auto Modelo X", description: "Sedan compacto, eficiente en combustible", category: "Autos" },
-                { title: "Grúa Industrial Y", description: "Capacidad de carga de 10 toneladas", category: "Grúas" },
-                { title: "Accesorio Z", description: "Compatible con múltiples modelos", category: "Accesorios" }
+                { title: "Auto Modelo X", description: "Sedan compacto, eficiente en combustible", category: "Autos", fechaEntrada: "2023-05-01", fechaSalida: "2023-05-10" },
+                { title: "Grúa Industrial Y", description: "Capacidad de carga de 10 toneladas", category: "Grúas", fechaEntrada: "2023-05-05", fechaSalida: "2023-05-15" },
+                { title: "Accesorio Z", description: "Compatible con múltiples modelos", category: "Accesorios", fechaEntrada: "2023-05-03", fechaSalida: "2023-05-12" }
             ];
 
             // Limpiar resultados anteriores
@@ -356,20 +447,22 @@
                 row.insertCell(0).textContent = result.title;
                 row.insertCell(1).textContent = result.description;
                 row.insertCell(2).textContent = result.category;
+                row.insertCell(3).textContent = result.fechaEntrada;
+                row.insertCell(4).textContent = result.fechaSalida;
             });
 
             // Mostrar la tabla de resultados
             resultsTable.style.display = 'table';
 
             // Agregar la búsqueda al historial
-            addToSearchHistory(query, category);
+            addToSearchHistory(query, category, fechaEntrada, fechaSalida);
 
-            console.log(`Realizando búsqueda: "${query}" en la categoría: ${category || 'Todas'}`);
+            console.log(`Realizando búsqueda: "${query}" en la categoría: ${category || 'Todas'}, desde ${fechaEntrada} hasta ${fechaSalida}`);
         }
 
-        function addToSearchHistory(query, category) {
+        function addToSearchHistory(query, category, fechaEntrada, fechaSalida) {
             const timestamp = new Date().toLocaleString();
-            searchHistory.unshift({ query, category, timestamp });
+            searchHistory.unshift({ query, category, fechaEntrada, fechaSalida, timestamp });
             updateSearchHistoryDisplay();
         }
 
@@ -378,7 +471,7 @@
             historyList.innerHTML = '';
             searchHistory.forEach(search => {
                 const li = document.createElement('li');
-                li.textContent = `"${search.query}" en ${search.category || 'Todas las categorías'} - ${search.timestamp}`;
+                li.textContent = `"${search.query}" en ${search.category || 'Todas las categorías'} - Desde: ${search.fechaEntrada || 'N/A'}, Hasta: ${search.fechaSalida || 'N/A'} - ${search.timestamp}`;
                 historyList.appendChild(li);
             });
         }
