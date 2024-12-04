@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Búsqueda - Peiper Unit Companies</title>
+    <link rel="stylesheet" href="css/style.pdf.css"> <!-- Conexión con el archivo CSS -->
+    <style>
+
+        :root {
+            --color-green: #00ff00;
+            --color-dark-green: #001a00;
+            --color-black: #000000;
+        }
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: var(--color-black);
+            color: var(--color-green);
+        }
+        .dashboard {
+            display: flex;
+            height: 100vh;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: var(--color-dark-green);
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+        }
+        .logo {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .logo img {
+            max-width: 150px;
+        }
+        .nav-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .nav-item {
+            margin-bottom: 0.5rem;
+        }
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem;
+            color: var(--color-green);
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        .nav-link:hover, .nav-link.active {
+            background-color: rgba(0, 255, 0, 0.1);
+        }
+        .nav-link svg {
+            margin-right: 0.5rem;
+        }
+        .sub-nav {
+            list-style-type: none;
+            padding-left: 2rem;
+            display: none;
+        }
+        .nav-item.active .sub-nav {
+            display: block;
+        }
+        .sub-nav-link {
+            display: flex;
+            align-items: center;
+            padding: 0.3rem 0.5rem;
+            color: var(--color-green);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: background-color 0.3s;
+        }
+        .sub-nav-link:hover {
+            background-color: rgba(0, 255, 0, 0.1);
+        }
+        .sub-nav-link svg {
+            margin-right: 0.5rem;
+        }
+        .main-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .top-bar {
+            background-color: var(--color-dark-green);
+            padding: 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .content-area {
+            flex-grow: 1;
+            padding: 2rem;
+            overflow-y: auto;
+            background: linear-gradient(to bottom, var(--color-black), var(--color-dark-green));
+        }
+        .page-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1rem;
+        }
+        .data-table th, .data-table td {
+            border: 1px solid var(--color-green);
+            padding: 0.5rem;
+            text-align: left;
+        }
+        .data-table th {
+            background-color: var(--color-dark-green);
+        }
+        .data-table input, .data-table select, .data-table textarea {
+            width: 100%;
+            padding: 0.3rem;
+            background-color: var(--color-black);
+            border: 1px solid var(--color-green);
+            color: var(--color-green);
+            box-sizing: border-box;
+        }
+        .data-table input[type="date"]::-webkit-calendar-picker-indicator {
+            filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(86deg) brightness(118%) contrast(119%);
+        }
+        .button-group {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        .btn {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background-color: var(--color-dark-green);
+            color: var(--color-green);
+            border: 1px solid var(--color-green);
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: var(--color-green);
+            color: var(--color-black);
+        }
+        .icon {
+            width: 1em;
+            height: 1em;
+        }
+        @media (max-width: 768px) {
+            .dashboard {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                order: 2;
+            }
+            .main-content {
+                order: 1;
+            }
+            .search-form {
+                flex-direction: column;
+            }
+            .search-form input,
+            .search-form select,
+            .search-form button {
+                width: 100%;
+                margin-bottom: 0.5rem;
+            }
+            .data-table {
+                font-size: 0.8rem;
+            }
+            .data-table th,
+            .data-table td {
+                padding: 0.3rem;
+            }
+            .data-table.mobile-view thead {
+                display: none;
+            }
+            .data-table.mobile-view tbody tr {
+                display: block;
+                margin-bottom: 1rem;
+                border: 1px solid var(--color-green);
+            }
+            .data-table.mobile-view tbody td {
+                display: block;
+                text-align: right;
+                padding-left: 50%;
+                position: relative;
+            }
+            .data-table.mobile-view tbody td:before {
+                content: attr(data-label);
+                position: absolute;
+                left: 6px;
+                width: 45%;
+                padding-right: 10px;
+                white-space: nowrap;
+                text-align: left;
+                font-weight: bold;
+            }
+        }
+        @media (max-width: 480px) {
+            .content-area {
+                padding: 1rem;
+            }
+            .page-title {
+                font-size: 1.5rem;
+            }
+            .btn-back {
+                font-size: 0.9rem;
+            }
+            .btn-back .btn-text {
+                display: none;
+            }
+            .btn-back .icon {
+                margin-right: 0;
+            }
+        }
+        .menu-toggle {
+            background: none;
+            border: none;
+            color: var(--color-green);
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: none;
+        }
+        @media (max-width: 768px) {
+            .sidebar {
+                position: fixed;
+                left: -250px;
+                top: 0;
+                bottom: 0;
+                z-index: 1000;
+                transition: left 0.3s;
+            }
+            .sidebar.open {
+                left: 0;
+            }
+            .menu-toggle {
+                display: block;
+            }
+        }
+        .data-table select {
+            width: 100%;
+            padding: 0.3rem;
+            background-color: var(--color-black);
+            border: 1px solid var(--color-green);
+            color: var(--color-green);
+            box-sizing: border-box;
+        }
+        .search-form {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .search-form input, .search-form select {
+            flex-grow: 1;
+            padding: 0.5rem;
+            background-color: var(--color-black);
+            border: 1px solid var(--color-green);
+            color: var(--color-green);
+        }
+        .search-history {
+            margin-top: 2rem;
+            padding: 1rem;
+            background-color: rgba(0, 85, 0, 0.2);
+            border: 1px solid var(--color-green);
+            border-radius: 4px;
+        }
+        .search-history h2 {
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+        .search-history ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .search-history li {
+            margin-bottom: 0.5rem;
+            padding: 0.5rem;
+            background-color: rgba(0, 255, 0, 0.1);
+            border-radius: 4px;
+        }
+        .btn-back {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        .btn-back .icon {
+            width: 1em;
+            height: 1em;
+            margin-right: 0.5rem;
+        }
+        .search-form input[type="date"] {
+            flex-grow: 1;
+            padding: 0.5rem;
+            background-color: var(--color-black);
+            border: 1px solid var(--color-green);
+            color: var(--color-green);
+        }
+        .search-form input[type="date"]::-webkit-calendar-picker-indicator {
+            filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(86deg) brightness(118%) contrast(119%);
+        }
+        .pdf-management {
+            margin-top: 2rem;
+            padding: 1rem;
+            background-color: rgba(0, 85, 0, 0.2);
+            border: 1px solid var(--color-green);
+            border-radius: 4px;
+        }
+        .pdf-management h2 {
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+        .pdf-upload-form, .pdf-search {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .pdf-upload-form input[type="file"], .pdf-search input[type="text"] {
+            flex-grow: 1;
+            padding: 0.5rem;
+            background-color: var(--color-black);
+            border: 1px solid var(--color-green);
+            color: var(--color-green);
+        }
+        .pdf-search-results {
+            margin-top: 1rem;
+        }
+        @media (max-width: 768px) {
+            .pdf-upload-form, .pdf-search {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <aside class="sidebar" id="sidebar">
+            <div class="logo">
+                <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/images-owP3tMIi30W1DirySRMIwswIjiDDZd.png" alt="Peiper Unit Companies Logo">
+            </div>
+            <nav>
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="t_autos.html" class="nav-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg>
+                            Coches
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="t_gruas.html" class="nav-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 17h4V5H2v12h3m9-9h7m-7 4h7"/><path d="M18 17h1c1 0 2-1 2-2V8l-3-3h-4"/><path d="M9 17h1"/></svg>
+                            Gruas
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="t_accesorios.html" class="nav-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.29 7 12 12 20.71 7"/><line x1="12" y1="22" x2="12" y2="12"/></svg>
+                            Accesorios
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="t_contenedores.html" class="nav-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+                            Contenedores
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="documentos-pdf.html" class="nav-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                            Documentos PDF
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="t_clientes.html" class="nav-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            Clientes
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="t_empleados.html" class="nav-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                            Empleados
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="t_busqueda.html" class="nav-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                            Buscar
+                        </a>
+                </ul>
+            </nav>
+        </aside>
+
+        <div class="main-content">
+            <header class="top-bar">
+                <button class="menu-toggle" id="menu-toggle">☰</button>
+                <h1 class="page-title">Búsqueda de Documentos PDF</h1>
+            </header>
+            <main class="content-area">
+                <button onclick="history.back()" class="btn btn-back">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon">
+                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                        <polyline points="12 19 5 12 12 5"></polyline>
+                    </svg>
+                    <span class="btn-text">Regresar</span>
+                </button>
+                <form class="search-form" onsubmit="event.preventDefault(); performSearch();">
+                    <input type="text" id="search-query" placeholder="Ingrese su búsqueda..." aria-label="Término de búsqueda">
+                    <input type="date" id="fecha-entrada" name="fecha-entrada" aria-label="Fecha de entrada">
+                    <input type="date" id="fecha-salida" name="fecha-salida" aria-label="Fecha de salida">
+                    <button type="submit" class="btn">Buscar</button>
+                </form>
+                <div class="pdf-management">
+                    <h2>Gestión de Documentos PDF</h2>
+                    <form class="pdf-upload-form" onsubmit="event.preventDefault(); uploadPDF();">
+                        <input type="file" id="pdf-file" accept=".pdf" required>
+                        <button type="submit" class="btn">Subir PDF</button>
+                    </form>
+                    <div class="pdf-search">
+                        <input type="text" id="pdf-search-id" placeholder="Buscar PDF por ID">
+                        <button onclick="searchPDF()" class="btn">Buscar PDF</button>
+                    </div>
+                    <div id="pdf-search-results" class="pdf-search-results"></div>
+                </div>
+                <table class="data-table" id="results-table" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th>Título</th>
+                            <th>Descripción</th>
+                            <th>Categoría</th>
+                            <th>Fecha de Entrada</th>
+                            <th>Fecha de Salida</th>
+                        </tr>
+                    </thead>
+                    <tbody id="results-body">
+                        <!-- Los resultados se insertarán aquí dinámicamente -->
+                    </tbody>
+                </table>
+                <div class="search-history">
+                    <h2>Búsquedas Realizadas</h2>
+                    <ul id="search-history-list">
+                        <!-- El historial de búsquedas se insertará aquí dinámicamente -->
+                    </ul>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        let searchHistory = [];
+
+        function performSearch() {
+            const query = document.getElementById('search-query').value;
+            const category = document.getElementById('search-category').value;
+            const fechaEntrada = document.getElementById('fecha-entrada').value;
+            const fechaSalida = document.getElementById('fecha-salida').value;
+            const resultsTable = document.getElementById('results-table');
+            const resultsBody = document.getElementById('results-body');
+
+            // Simulación de resultados (en una aplicación real, esto sería una llamada a una API)
+            const mockResults = [
+                { title: "Auto Modelo X", description: "Sedan compacto, eficiente en combustible", category: "Autos", fechaEntrada: "2023-05-01", fechaSalida: "2023-05-10" },
+                { title: "Grúa Industrial Y", description: "Capacidad de carga de 10 toneladas", category: "Grúas", fechaEntrada: "2023-05-05", fechaSalida: "2023-05-15" },
+                { title: "Accesorio Z", description: "Compatible con múltiples modelos", category: "Accesorios", fechaEntrada: "2023-05-03", fechaSalida: "2023-05-12" }
+            ];
+
+            // Limpiar resultados anteriores
+            resultsBody.innerHTML = '';
+
+            // Mostrar resultados simulados
+            mockResults.forEach(result => {
+                const row = resultsBody.insertRow();
+                row.insertCell(0).textContent = result.title;
+                row.insertCell(1).textContent = result.description;
+                row.insertCell(2).textContent = result.category;
+                row.insertCell(3).textContent = result.fechaEntrada;
+                row.insertCell(4).textContent = result.fechaSalida;
+            });
+
+            // Mostrar la tabla de resultados
+            resultsTable.style.display = 'table';
+
+            // Agregar la búsqueda al historial
+            addToSearchHistory(query, category, fechaEntrada, fechaSalida);
+
+            console.log(`Realizando búsqueda: "${query}" en la categoría: ${category || 'Todas'}, desde ${fechaEntrada} hasta ${fechaSalida}`);
+        }
+
+        function addToSearchHistory(query, category, fechaEntrada, fechaSalida) {
+            const timestamp = new Date().toLocaleString();
+            searchHistory.unshift({ query, category, fechaEntrada, fechaSalida, timestamp });
+            updateSearchHistoryDisplay();
+        }
+
+        function updateSearchHistoryDisplay() {
+            const historyList = document.getElementById('search-history-list');
+            historyList.innerHTML = '';
+            searchHistory.forEach(search => {
+                const li = document.createElement('li');
+                li.textContent = `"${search.query}" en ${search.category || 'Todas las categorías'} - Desde: ${search.fechaEntrada || 'N/A'}, Hasta: ${search.fechaSalida || 'N/A'} - ${search.timestamp}`;
+                historyList.appendChild(li);
+            });
+        }
+
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            document.getElementById('sidebar').classList.toggle('open');
+        });
+
+        function adjustTableForMobile() {
+            const table = document.getElementById('results-table');
+            const isMobile = window.innerWidth <= 768;
+            
+            if (isMobile) {
+                table.classList.add('mobile-view');
+                const headers = table.querySelectorAll('th');
+                const rows = table.querySelectorAll('tbody tr');
+                
+                rows.forEach(row => {
+                    const cells = row.querySelectorAll('td');
+                    cells.forEach((cell, index) => {
+                        cell.setAttribute('data-label', headers[index].textContent);
+                    });
+                });
+            } else {
+                table.classList.remove('mobile-view');
+            }
+        }
+
+        window.addEventListener('resize', adjustTableForMobile);
+        document.addEventListener('DOMContentLoaded', adjustTableForMobile);
+
+        function uploadPDF() {
+            const fileInput = document.getElementById('pdf-file');
+            const file = fileInput.files[0];
+            if (file) {
+                // Aquí iría la lógica para subir el archivo al servidor
+                console.log(`Subiendo archivo: ${file.name}`);
+                alert('PDF subido con éxito');
+                fileInput.value = '';
+            }
+        }
+
+        function searchPDF() {
+            const searchId = document.getElementById('pdf-search-id').value;
+            const resultsDiv = document.getElementById('pdf-search-results');
+            // Aquí iría la lógica para buscar el PDF en el servidor
+            console.log(`Buscando PDF con ID: ${searchId}`);
+            // Simulación de resultados
+            resultsDiv.innerHTML = `
+                <h3>Resultados de la búsqueda</h3>
+                <p>PDF encontrado: documento_${searchId}.pdf</p>
+                <a href="#" class="btn">Ver PDF</a>
+            `;
+        }
+    </script>
+</body>
+</html>

@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ingreso de Datos de Accesorios - Peiper</title>
-    <link rel="stylesheet" href="css/style.accesorio.css"> <!-- Conexión con el archivo CSS -->
+    <title>Búsqueda - Peiper Unit Companies</title>
+    <link rel="stylesheet" href="css/style.busqueda.css"> <!-- Conexión con el archivo CSS -->
     <style>
+
         :root {
             --color-green: #00ff00;
             --color-dark-green: #001a00;
             --color-black: #000000;
-            --color-light-green: #ccffcc;
         }
         body, html {
             height: 100%;
@@ -90,7 +90,7 @@
             background-color: var(--color-dark-green);
             padding: 1rem;
             display: flex;
-            justify-content: center; /* Update: Center the title */
+            justify-content: center;
             align-items: center;
         }
         .content-area {
@@ -203,9 +203,41 @@
             color: var(--color-green);
             box-sizing: border-box;
         }
+        .search-form {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .search-form input, .search-form select {
+            flex-grow: 1;
+            padding: 0.5rem;
+            background-color: var(--color-black);
+            border: 1px solid var(--color-green);
+            color: var(--color-green);
+        }
+        .search-history {
+            margin-top: 2rem;
+            padding: 1rem;
+            background-color: rgba(0, 85, 0, 0.2);
+            border: 1px solid var(--color-green);
+            border-radius: 4px;
+        }
+        .search-history h2 {
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+        .search-history ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .search-history li {
+            margin-bottom: 0.5rem;
+            padding: 0.5rem;
+            background-color: rgba(0, 255, 0, 0.1);
+            border-radius: 4px;
+        }
     </style>
 </head>
-
 <body>
     <div class="dashboard">
         <aside class="sidebar" id="sidebar">
@@ -232,8 +264,8 @@
                             Accesorios
                         </a>
                     </li>
-                    <li class="nav-item active">
-                        <a href="t_contenedores.html" class="nav-link active">
+                    <li class="nav-item">
+                        <a href="t_contenedores.html" class="nav-link">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
                             Contenedores
                         </a>
@@ -260,122 +292,100 @@
             </nav>
         </aside>
 
-
         <div class="main-content">
             <header class="top-bar">
                 <button class="menu-toggle" id="menu-toggle">☰</button>
-                <h1 class="page-title">Ingreso de Datos de Accesorios</h1>
+                <h1 class="page-title">Búsqueda de Inventario</h1>
             </header>
             <main class="content-area">
-                <form id="containerForm">
-                    <table class="data-table">
+                <form class="search-form" onsubmit="event.preventDefault(); performSearch();">
+                    <input type="text" id="search-query" placeholder="Ingrese su búsqueda..." aria-label="Término de búsqueda">
+                    <select id="search-category" aria-label="Categoría de búsqueda">
+                        <option value="">Todas las categorías</option>
+                        <option value="autos">Autos</option>
+                        <option value="gruas">Grúas</option>
+                        <option value="accesorios">Accesorios</option>
+                        <option value="contenedores">Contenedores</option>
+                    </select>
+                    <button type="submit" class="btn">Buscar</button>
+                </form>
+                <table class="data-table" id="results-table" style="display: none;">
+                    <thead>
                         <tr>
-                            <th>Campo</th>
-                            <th>Valor</th>
+                            <th>Título</th>
+                            <th>Descripción</th>
+                            <th>Categoría</th>
                         </tr>
-                        <tr>
-                            <td><label for="id">ID</label></td>
-                            <td><input type="text" id="id" name="id" class="form-control" readonly></td>
-                        </tr>
-                        <tr>
-                            <td><label for="vin">VIN</label></td>
-                            <td><input type="text" id="vin" name="vin" class="form-control"></td>
-                        </tr>
-                        <tr>
-                            <td><label for="id_cliente">ID Cliente</label></td>
-                            <td><input type="text" id="id_cliente" name="id_cliente" class="form-control"></td>
-                        </tr>
-                        <tr>
-                            <td><label for="nombre">Nombre</label></td>
-                            <td><input type="text" id="nombre" name="nombre" class="form-control"></td>
-                        </tr>
-                        <tr>
-                            <td><label for="tipo_accesorio">Tipo Accesorio</label></td>
-                            <td><input type="text" id="tipo_accesorio" name="tipo_accesorio" class="form-control"></td>
-                        </tr>
-                        <tr>
-                            <td><label for="dimensiones">Dimensiones</label></td>
-                            <td><input type="text" id="dimensiones" name="dimensiones" class="form-control"></td>
-                        </tr>
-                        <tr>
-                            <td><label for="comentarios">Comentarios</label></td>
-                            <td><textarea id="comentarios" name="comentarios" rows="3" class="form-control"></textarea></td>
-                        </tr>
-                        <tr>
-                            <td><label for="fecha_ingreso">Fecha de Ingreso</label></td>
-                            <td><input type="date" id="fecha_ingreso" name="fecha_ingreso" required></td>
-                        </tr>
-                        <tr>
-                            <td><label for="fecha_salida">Fecha de Salida</label></td>
-                            <td><input type="date" id="fecha_salida" name="fecha_salida"></td>
-                        </tr>
-                        </table>
-
-
-                        <div class="button-group">
-                            <button type="submit" class="btn">
-                                <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
-                                Guardar
-                            </button>
-                            <button type="button" class="btn" id="editBtn">
-                                <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
-                                Editar
-                            </button>
-                            <button type="button" class="btn" id="deleteBtn">
-                                <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
-                                Eliminar
-                            </button>
-                            <button type="reset" class="btn">
-                                <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v5h5"></path><path d="M3.05 13A9 9 0 1 0 6 5.3L3 8"></path></svg>
-                                Borrar
-                            </button>
-                            <button type="button" class="btn" id="newBtn">
-                                <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
-                                Nuevo
-                            </button>
-                            <a href="dashboard.html" class="btn" id="backBtn">
-                                <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-                                Regresar
-                            </a>
-                        </div>
-                    </form>
-                </main>
-            </div>
+                    </thead>
+                    <tbody id="results-body">
+                        <!-- Los resultados se insertarán aquí dinámicamente -->
+                    </tbody>
+                </table>
+                <div class="search-history">
+                    <h2>Búsquedas Realizadas</h2>
+                    <ul id="search-history-list">
+                        <!-- El historial de búsquedas se insertará aquí dinámicamente -->
+                    </ul>
+                </div>
+            </main>
         </div>
-        <script>
-            document.getElementById('containerForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                alert('Datos guardados (simulación)');
+    </div>
+
+    <script>
+        let searchHistory = [];
+
+        function performSearch() {
+            const query = document.getElementById('search-query').value;
+            const category = document.getElementById('search-category').value;
+            const resultsTable = document.getElementById('results-table');
+            const resultsBody = document.getElementById('results-body');
+
+            // Simulación de resultados (en una aplicación real, esto sería una llamada a una API)
+            const mockResults = [
+                { title: "Auto Modelo X", description: "Sedan compacto, eficiente en combustible", category: "Autos" },
+                { title: "Grúa Industrial Y", description: "Capacidad de carga de 10 toneladas", category: "Grúas" },
+                { title: "Accesorio Z", description: "Compatible con múltiples modelos", category: "Accesorios" }
+            ];
+
+            // Limpiar resultados anteriores
+            resultsBody.innerHTML = '';
+
+            // Mostrar resultados simulados
+            mockResults.forEach(result => {
+                const row = resultsBody.insertRow();
+                row.insertCell(0).textContent = result.title;
+                row.insertCell(1).textContent = result.description;
+                row.insertCell(2).textContent = result.category;
             });
-    
-            document.getElementById('editBtn').addEventListener('click', function() {
-                alert('Modo edición activado (simulación)');
+
+            // Mostrar la tabla de resultados
+            resultsTable.style.display = 'table';
+
+            // Agregar la búsqueda al historial
+            addToSearchHistory(query, category);
+
+            console.log(`Realizando búsqueda: "${query}" en la categoría: ${category || 'Todas'}`);
+        }
+
+        function addToSearchHistory(query, category) {
+            const timestamp = new Date().toLocaleString();
+            searchHistory.unshift({ query, category, timestamp });
+            updateSearchHistoryDisplay();
+        }
+
+        function updateSearchHistoryDisplay() {
+            const historyList = document.getElementById('search-history-list');
+            historyList.innerHTML = '';
+            searchHistory.forEach(search => {
+                const li = document.createElement('li');
+                li.textContent = `"${search.query}" en ${search.category || 'Todas las categorías'} - ${search.timestamp}`;
+                historyList.appendChild(li);
             });
-    
-            document.getElementById('deleteBtn').addEventListener('click', function() {
-                if (confirm('¿Estás seguro de que quieres eliminar este registro?')) {
-                    alert('Registro eliminado (simulación)');
-                }
-            });
-    
-            document.getElementById('newBtn').addEventListener('click', function() {
-                document.getElementById('containerForm').reset();
-                document.getElementById('id').value = '';
-            });
-    
-            document.getElementById('menu-toggle').addEventListener('click', function() {
-                document.getElementById('sidebar').classList.toggle('open');
-            });
-    
-            document.querySelectorAll('.nav-link').forEach(function(link) {
-                link.addEventListener('click', function(e) {
-                    document.querySelectorAll('.nav-item').forEach(function(item) {
-                        item.classList.remove('active');
-                    });
-                    this.closest('.nav-item').classList.add('active');
-                    console.log('Navegando a:', this.getAttribute('href'));
-                });
-            });
-        </script>
-    </body>
-    </html>
+        }
+
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            document.getElementById('sidebar').classList.toggle('open');
+        });
+    </script>
+</body>
+</html>

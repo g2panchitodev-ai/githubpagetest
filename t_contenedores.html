@@ -241,10 +241,24 @@
                             Documentos PDF
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="t_clientes.html" class="nav-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            Clientes
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="t_empleados.html" class="nav-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                            Empleados
+                        </a>
+                    </li>
                 </ul>
             </nav>
         </aside>
-        
+
+
+
         <div class="main-content">
             <header class="top-bar">
                 <button class="menu-toggle" id="menu-toggle">☰</button>
@@ -259,19 +273,35 @@
                         </tr>
                         <tr>
                             <td><label for="id">ID</label></td>
-                            <td><input type="text" id="id" name="id" readonly></td>
+                            <td><input type="text" id="id" name="id" class="form-control" readonly></td>
                         </tr>
                         <tr>
-                            <td><label for="tipo_contenedor">Tipo de Contenedor</label></td>
-                            <td><input type="text" id="tipo_contenedor" name="tipo_contenedor" required></td>
+                            <td><label for="id_contenedor">ID Contenedor</label></td>
+                            <td><input type="text" id="id_contenedor" name="id_contenedor" class="form-control" required></td>
                         </tr>
                         <tr>
-                            <td><label for="peso">Peso</label></td>
-                            <td><input type="number" id="peso" name="peso" required></td>
+                            <td><label for="placas">Placas</label></td>
+                            <td><input type="text" id="placas" name="placas" class="form-control" required></td>
                         </tr>
                         <tr>
-                            <td><label for="capacidad">Capacidad</label></td>
-                            <td><input type="text" id="capacidad" name="capacidad" required></td>
+                            <td><label for="eco">Eco</label></td>
+                            <td><input type="text" id="eco" name="eco" class="form-control" required></td>
+                        </tr>
+                        <tr>
+                            <td><label for="nombre_cliente">Nombre del Cliente</label></td>
+                            <td><input type="text" id="nombre_cliente" name="nombre_cliente" class="form-control" required></td>
+                        </tr>
+                        <tr>
+                            <td><label for="transportista">Transportista</label></td>
+                            <td><input type="text" id="transportista" name="transportista" class="form-control" required></td>
+                        </tr>
+                        <tr>
+                            <td><label for="nombre_operador">Nombre del Operador</label></td>
+                            <td><input type="text" id="nombre_operador" name="nombre_operador" class="form-control" required></td>
+                        </tr>
+                        <tr>
+                            <td><label for="operacion">Operación</label></td>
+                            <td><input type="text" id="operacion" name="operacion" class="form-control" required></td>
                         </tr>
                         <tr>
                             <td><label for="fecha_ingreso">Fecha de Ingreso</label></td>
@@ -282,21 +312,13 @@
                             <td><input type="date" id="fecha_salida" name="fecha_salida"></td>
                         </tr>
                         <tr>
-                            <td><label for="condiciones_entrada">Condiciones de Entrada</label></td>
-                            <td><textarea id="condiciones_entrada" name="condiciones_entrada" rows="3"></textarea></td>
-                        </tr>
-                        <tr>
-                            <td><label for="inspeccion">Inspección</label></td>
-                            <td><textarea id="inspeccion" name="inspeccion" rows="3"></textarea></td>
-                        </tr>
-                        <tr>
                             <td><label for="comentarios">Comentarios</label></td>
-                            <td><textarea id="comentarios" name="comentarios" rows="3"></textarea></td>
+                            <td><textarea id="comentarios" name="comentarios" rows="3" class="form-control"></textarea></td>
                         </tr>
                         <tr>
                             <td><label for="empleado_registro">Empleado de Registro</label></td>
                             <td>
-                                <select id="empleado_registro" name="empleado_registro" required>
+                                <select id="empleado_registro" name="empleado_registro" class="form-control" required>
                                     <option value="">Seleccione un empleado</option>
                                     <option value="1">Juan Pérez</option>
                                     <option value="2">María García</option>
@@ -308,7 +330,7 @@
                         </tr>
                     </table>
 
-                    
+
                     <div class="button-group">
                         <button type="submit" class="btn">
                             <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
@@ -360,10 +382,6 @@
         document.getElementById('newBtn').addEventListener('click', function() {
             document.getElementById('containerForm').reset();
             document.getElementById('id').value = '';
-        });
-
-        document.getElementById('backBtn').addEventListener('click', function() {
-            //This event listener is no longer needed since the back button is now a link.
         });
 
         document.getElementById('menu-toggle').addEventListener('click', function() {

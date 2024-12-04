@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ingreso de Datos de Accesorios - Peiper</title>
-    <link rel="stylesheet" href="css/style.accesorio.css"> <!-- Conexión con el archivo CSS -->
+    <title>Ingreso de Datos de Empleados - Peiper</title>
+    <link rel="stylesheet" href="css/style.clientes.css"> <!-- Conexión con el archivo CSS -->
     <style>
         :root {
             --color-green: #00ff00;
             --color-dark-green: #001a00;
             --color-black: #000000;
-            --color-light-green: #ccffcc;
         }
         body, html {
             height: 100%;
@@ -205,7 +204,6 @@
         }
     </style>
 </head>
-
 <body>
     <div class="dashboard">
         <aside class="sidebar" id="sidebar">
@@ -264,7 +262,7 @@
         <div class="main-content">
             <header class="top-bar">
                 <button class="menu-toggle" id="menu-toggle">☰</button>
-                <h1 class="page-title">Ingreso de Datos de Accesorios</h1>
+                <h1 class="page-title">Ingreso de Datos de Empleados</h1>
             </header>
             <main class="content-area">
                 <form id="containerForm">
@@ -274,44 +272,28 @@
                             <th>Valor</th>
                         </tr>
                         <tr>
-                            <td><label for="id">ID</label></td>
-                            <td><input type="text" id="id" name="id" class="form-control" readonly></td>
-                        </tr>
-                        <tr>
-                            <td><label for="vin">VIN</label></td>
-                            <td><input type="text" id="vin" name="vin" class="form-control"></td>
-                        </tr>
-                        <tr>
-                            <td><label for="id_cliente">ID Cliente</label></td>
-                            <td><input type="text" id="id_cliente" name="id_cliente" class="form-control"></td>
+                            <td><label for="id_emp">ID</label></td>
+                            <td><input type="text" id="id_emp" name="id_emp" readonly></td>
                         </tr>
                         <tr>
                             <td><label for="nombre">Nombre</label></td>
-                            <td><input type="text" id="nombre" name="nombre" class="form-control"></td>
+                            <td><input type="text" id="nombre" name="tipo_contenedor" required></td>
                         </tr>
                         <tr>
-                            <td><label for="tipo_accesorio">Tipo Accesorio</label></td>
-                            <td><input type="text" id="tipo_accesorio" name="tipo_accesorio" class="form-control"></td>
+                            <td><label for="apellido">Apellidos</label></td>
+                            <td><input type="text" id="apellido" name="apellido" required></td>
                         </tr>
                         <tr>
-                            <td><label for="dimensiones">Dimensiones</label></td>
-                            <td><input type="text" id="dimensiones" name="dimensiones" class="form-control"></td>
+                            <td><label for="rfc">RFC</label></td>
+                            <td><input type="text" id="rfc" name="rfc" required></td>
                         </tr>
                         <tr>
-                            <td><label for="comentarios">Comentarios</label></td>
-                            <td><textarea id="comentarios" name="comentarios" rows="3" class="form-control"></textarea></td>
-                        </tr>
-                        <tr>
-                            <td><label for="fecha_ingreso">Fecha de Ingreso</label></td>
-                            <td><input type="date" id="fecha_ingreso" name="fecha_ingreso" required></td>
-                        </tr>
-                        <tr>
-                            <td><label for="fecha_salida">Fecha de Salida</label></td>
-                            <td><input type="date" id="fecha_salida" name="fecha_salida"></td>
+                            <td><label for="rel">Telefono</label></td>
+                            <td><input type="text" id="tel" name="tel" required></td>
                         </tr>
                         </table>
 
-
+                        
                         <div class="button-group">
                             <button type="submit" class="btn">
                                 <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
@@ -342,31 +324,31 @@
                 </main>
             </div>
         </div>
+    
+        
         <script>
             document.getElementById('containerForm').addEventListener('submit', function(e) {
                 e.preventDefault();
                 alert('Datos guardados (simulación)');
             });
-    
             document.getElementById('editBtn').addEventListener('click', function() {
                 alert('Modo edición activado (simulación)');
             });
-    
             document.getElementById('deleteBtn').addEventListener('click', function() {
                 if (confirm('¿Estás seguro de que quieres eliminar este registro?')) {
                     alert('Registro eliminado (simulación)');
                 }
             });
-    
             document.getElementById('newBtn').addEventListener('click', function() {
                 document.getElementById('containerForm').reset();
                 document.getElementById('id').value = '';
             });
-    
+            document.getElementById('backBtn').addEventListener('click', function() {
+                //This event listener is no longer needed since the back button is now a link.
+            });
             document.getElementById('menu-toggle').addEventListener('click', function() {
                 document.getElementById('sidebar').classList.toggle('open');
             });
-    
             document.querySelectorAll('.nav-link').forEach(function(link) {
                 link.addEventListener('click', function(e) {
                     document.querySelectorAll('.nav-item').forEach(function(item) {
@@ -379,3 +361,4 @@
         </script>
     </body>
     </html>
+                        
